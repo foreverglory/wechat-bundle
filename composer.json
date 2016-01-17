@@ -1,0 +1,25 @@
+{
+    "name": "foreverglory/wechat-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony WechatBundle",
+    "keywords": ["symfony", "bundle", "wechat"],
+    "homepage": "http://foreverglory.me",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ForeverGlory",
+            "email": "foreverglory@qq.com",
+            "homepage": "http://foreverglory.me"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.3",
+        "overtrue/wechat": "~2.1"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": {"Glory\\WechatBundle": ""}
+    },
+    "target-dir": "Glory/WechatBundle"
+}
