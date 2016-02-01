@@ -1,4 +1,7 @@
+parameters:
+    wechat.server.class: Overtrue\Wechat\Server
+
 services:
-#    glory_wechat.example:
-#        class: Glory\WechatBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    wechat.server:
+        class: %wechat.server.class%
+        

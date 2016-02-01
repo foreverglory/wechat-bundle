@@ -12,6 +12,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+
     /**
      * {@inheritdoc}
      */
@@ -20,10 +21,19 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('glory_wechat');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+                ->children()
+                    ->arrayNode('server')
+                        ->useAttributeAsKey('name')
+                        ->prototype('array')
+                        ->children()
+                            ->scalarNode('appId')->isRequired()->info('wechat appId')->end()
+                            ->scalarNode('token')->isRequired()->info('wechat token')->end()
+                        ->end()
+                    ->end()
+                ->end();
 
         return $treeBuilder;
     }
+
 }
