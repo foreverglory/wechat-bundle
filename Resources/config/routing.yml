@@ -1,3 +1,23 @@
-glory_wechat_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: GloryWechatBundle:Default:index }
+glory_wechat_comm:
+    path:   /wechat/comm
+    defaults: { _controller: GloryWechatBundle:Comm:index }
+
+glory_wechat_Auth:
+    path:   /wechat/login
+    defaults: { _controller: GloryWechatBundle:Auth:index }
+    
+glory_wechat_js:
+    path:   /wechat/js
+    defaults: { _controller: GloryWechatBundle:Js:index }
+
+glory_wechat_qrcode:
+    path:   /wechat/qrcode
+    defaults: { _controller: GloryWechatBundle:Qrcode:index }
+
+glory_wechat_pay:
+    path:   /wechat/pay
+    defaults: { _controller: GloryWechatBundle:Pay:index }
+
+
+
+
