@@ -5,3 +5,25 @@ services:
     wechat.server:
         class: %wechat.server.class%
         
+    wechat.message.text:
+        class: Overtrue\Wechat\Messages\Text
+    wechat.message.image:
+        class: Overtrue\Wechat\Messages\Image
+    wechat.message.voice:
+        class: Overtrue\Wechat\Messages\Voice
+    wechat.message.video:
+        class: Overtrue\Wechat\Messages\Video
+    wechat.message.mpvideo:
+        class: Overtrue\Wechat\Messages\MpVideo
+    wechat.message.music:
+        class: Overtrue\Wechat\Messages\Music
+    wechat.message.news:
+        class: Overtrue\Wechat\Messages\News
+    wechat.message.transfer:
+        class: Overtrue\Wechat\Messages\Transfer
+    wechat.message.news_item:
+        class: Overtrue\Wechat\Messages\NewsItem
+    wechat.message.mp_news:
+        class: Overtrue\Wechat\Messages\MpNews
+    wechat.message.wxcard:
+        class: Overtrue\Wechat\Messages\Wxcard
