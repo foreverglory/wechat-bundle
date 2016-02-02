@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('appId')->isRequired()->info('wechat appId')->end()
                             ->scalarNode('token')->isRequired()->info('wechat token')->end()
+                            ->scalarNode('key')->defaultValue('')->info('wechat key')->end()
                         ->end()
                     ->end()
                 ->end();

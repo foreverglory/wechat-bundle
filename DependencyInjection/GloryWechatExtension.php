@@ -30,7 +30,7 @@ class GloryWechatExtension extends Extension
 
         foreach ($config['server'] as $key => $val) {
             $server = new DefinitionDecorator('wechat.server');
-            $server->setArguments(array($val['appId'], $val['token']));
+            $server->setArguments(array($val['appId'], $val['token'], $val['key']));
             $container->setDefinition('wechat.server.' . $key, $server);
         }
     }
