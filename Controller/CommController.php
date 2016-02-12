@@ -33,7 +33,7 @@ class CommController extends Controller
             });
         }
         $result = $server->serve();
-        echo $result;
+        return new \Symfony\Component\HttpFoundation\Response($result);
     }
 
 }
