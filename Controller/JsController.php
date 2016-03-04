@@ -14,8 +14,9 @@ use Glory\WechatBundle\EventDispatcher\Event;
  */
 class JsController extends Controller
 {
-    
-    public function indexAction(Request $request,$app){
+
+    public function indexAction(Request $request, $id)
+    {
         
     }
 
