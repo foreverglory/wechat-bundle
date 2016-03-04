@@ -1,9 +1,15 @@
 parameters:
-    wechat.server.class: Overtrue\Wechat\Server
+    wechat.app.class: EasyWeChat\Foundation\Application
 
 services:
-    wechat.server:
-        class: %wechat.server.class%
+    wechat.app:
+        class: %wechat.app.class%
+    
+    glory_theme.listener:
+        class: Glory\WechatBundle\EventSubscriber\ServerSubscriber
+        arguments: [@service_container]
+        tags:
+            -  { name: kernel.event_subscriber }
         
     wechat.message.text:
         class: Overtrue\Wechat\Messages\Text
