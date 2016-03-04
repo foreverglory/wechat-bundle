@@ -26,12 +26,28 @@ class GloryWechatExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $wechatServerDefinition = $container->getDefinition('wechat.server');
+        //$wechatServerDefinition = $container->getDefinition('wechat.app');
 
-        foreach ($config['server'] as $key => $val) {
-            $server = new DefinitionDecorator('wechat.server');
-            $server->setArguments(array($val['appId'], $val['token'], $val['key']));
-            $container->setDefinition('wechat.server.' . $key, $server);
+        foreach ($config['apps'] as $key => $val) {
+            $server = new DefinitionDecorator('wechat.app');
+            $options = [
+                'app_id' => $val['AppId'],
+                'secret' => $val['AppSecret'],
+                'token' => $val['Token'],
+                'aes_key' => $val['EncodingAESKey'],
+                'debug' => true,
+                'log' => [
+                    'level' => $val['log']['level'],
+                    'file' => $val['log']['file'],
+                ],
+                'oauth' => [
+                    'scopes' => $val['oauth']['scopes'],
+                    'callback' => $val['oauth']['callback']
+                ],
+                'payment' => $val['payment']
+            ];
+            $server->setArguments(array($options));
+            $container->setDefinition('wechat.app.' . $key, $server);
         }
     }
 
