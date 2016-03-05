@@ -18,6 +18,9 @@ glory_wechat_pay:
     path:   /wechat/{id}/pay
     defaults: { _controller: GloryWechatBundle:Payment:index, id: default }
 
+glory_wechat_pay_notify:
+    path:   /wechat/{id}/pay/notify
+    defaults: { _controller: GloryWechatBundle:Payment:notify, id: default }
 
 
 
