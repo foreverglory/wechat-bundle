@@ -1,9 +1,11 @@
 parameters:
-    wechat.app.class: EasyWeChat\Foundation\Application
+    #wechat.app.class: EasyWeChat\Foundation\Application
+    wechat.app.class: Glory\WechatBundle\Wechat\Application
 
 services:
     wechat.app:
         class: %wechat.app.class%
+        arguments: [@service_container]
     
     glory_theme.listener:
         class: Glory\WechatBundle\EventSubscriber\ServerSubscriber

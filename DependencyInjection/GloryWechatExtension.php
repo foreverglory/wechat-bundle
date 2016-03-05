@@ -30,24 +30,9 @@ class GloryWechatExtension extends Extension
 
         foreach ($config['apps'] as $key => $val) {
             $server = new DefinitionDecorator('wechat.app');
-            $options = [
-                'app_id' => $val['AppId'],
-                'secret' => $val['AppSecret'],
-                'token' => $val['Token'],
-                'aes_key' => $val['EncodingAESKey'],
-                'debug' => true,
-                'log' => [
-                    'level' => $val['log']['level'],
-                    'file' => $val['log']['file'],
-                ],
-                'oauth' => [
-                    'scopes' => $val['oauth']['scopes'],
-                    'callback' => $val['oauth']['callback']
-                ],
-                'payment' => $val['payment']
-            ];
-            $server->setArguments(array($options));
-            $container->setDefinition('wechat.app.' . $key, $server);
+            $options = array_merge($val, array('name' => $key));
+            $server->addArgument($options);
+            $container->setDefinition(sprintf('wechat.app.%s', $key), $server);
         }
     }
 
