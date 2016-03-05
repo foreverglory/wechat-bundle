@@ -3,14 +3,13 @@
 namespace Glory\WechatBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use EasyWeChat\Message\AbstractMessage;
 
 /**
  * Description of WechatEvent
  *
  * @author ForeverGlory
  */
-class WechatEvent extends Event
+class ServerEvent extends Event
 {
 
     protected $app;

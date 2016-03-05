@@ -4,7 +4,7 @@ namespace Glory\WechatBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Glory\WechatBundle\Event\WechatEvent;
+use Glory\WechatBundle\Event\ServerEvent;
 use Glory\WechatBundle\Events;
 
 class ServerSubscriber implements EventSubscriberInterface
@@ -27,7 +27,7 @@ class ServerSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function requestException(WechatEvent $event)
+    public function requestException(ServerEvent $event)
     {
         //todo save $event->getRequest();
         $message = $event->getRequest();
@@ -81,7 +81,7 @@ class ServerSubscriber implements EventSubscriberInterface
         }
     }
 
-    public function responseException(WechatEvent $event)
+    public function responseException(ServerEvent $event)
     {
         if (!$event->isResponse()) {
             //$response = $event->getRequest()->toJson();
