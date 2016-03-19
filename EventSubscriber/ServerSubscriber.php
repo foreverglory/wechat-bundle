@@ -1,11 +1,11 @@
 <?php
 
-namespace Glory\WechatBundle\EventSubscriber;
+namespace Glory\Bundle\WechatBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Glory\WechatBundle\Event\ServerEvent;
-use Glory\WechatBundle\Events;
+use Glory\Bundle\WechatBundle\Event\ServerEvent;
+use Glory\Bundle\WechatBundle\Events;
 
 class ServerSubscriber implements EventSubscriberInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Wechat;
+namespace Glory\Bundle\WechatBundle\Wechat;
 
 use EasyWeChat\Foundation\Application as App;
 use Symfony\Component\DependencyInjection\ContainerInterface;

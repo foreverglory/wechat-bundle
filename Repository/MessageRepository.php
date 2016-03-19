@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Repository;
+namespace Glory\Bundle\WechatBundle\Repository;
 
 /**
  * MessageRepository

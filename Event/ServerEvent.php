@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Event;
+namespace Glory\Bundle\WechatBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 

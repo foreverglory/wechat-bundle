@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\DependencyInjection;
+namespace Glory\Bundle\WechatBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

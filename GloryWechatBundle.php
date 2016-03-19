@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle;
+namespace Glory\Bundle\WechatBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

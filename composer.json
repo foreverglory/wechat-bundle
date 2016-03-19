@@ -12,15 +12,13 @@
             "homepage": "http://foreverglory.me"
         }
     ],
+    "autoload": {
+        "psr-0": {"Glory\\Bundle\\WechatBundle": ""}
+    },
     "require": {
         "symfony/symfony": "~2.3",
         "overtrue/wechat": "~3.0"
     },
     "require-dev": {
-    },
-    "autoload": {
-        "psr-0": {"Glory\\WechatBundle": ""}
-    },
-    "minimum-stability": "dev",
-    "target-dir": "Glory/WechatBundle"
+    }
 }

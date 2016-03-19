@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\DependencyInjection;
+namespace Glory\Bundle\WechatBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Controller;
+namespace Glory\Bundle\WechatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

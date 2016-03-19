@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Entity;
+namespace Glory\Bundle\WechatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Message
  *
  * @ORM\Table(name="wechat_message")
- * @ORM\Entity(repositoryClass="Glory\WechatBundle\Repository\MessageRepository")
+ * @ORM\Entity(repositoryClass="Glory\Bundle\WechatBundle\Repository\MessageRepository")
  */
 class Message
 {

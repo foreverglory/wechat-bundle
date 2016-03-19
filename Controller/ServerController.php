@@ -1,12 +1,12 @@
 <?php
 
-namespace Glory\WechatBundle\Controller;
+namespace Glory\Bundle\WechatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Glory\WechatBundle\Entity\Message;
-use Glory\WechatBundle\Events;
-use Glory\WechatBundle\Event\ServerEvent;
+use Glory\Bundle\WechatBundle\Entity\Message;
+use Glory\Bundle\WechatBundle\Events;
+use Glory\Bundle\WechatBundle\Event\ServerEvent;
 
 /**
  * Description of CommController

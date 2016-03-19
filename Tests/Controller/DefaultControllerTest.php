@@ -1,6 +1,6 @@
 <?php
 
-namespace Glory\WechatBundle\Tests\Controller;
+namespace Glory\Bundle\WechatBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
