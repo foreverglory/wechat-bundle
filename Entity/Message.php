@@ -12,25 +12,25 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
-
     /**
      * @var string
-     * @ORM\Id
+     *
      * @ORM\Column(name="MsgId", type="string", length=255, unique=true)
+     * @ORM\Id
      */
     private $msgId;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="MsgType", type="string", length=32)
      */
     private $msgType;
-    
+
     /**
      * @var string
      *
-     * @ORM\Column(name="MsgContext", type="string", length=255)
+     * @ORM\Column(name="MsgContext", type="string", length=255, nullable=true)
      */
     private $msgContext;
 
@@ -54,13 +54,15 @@ class Message
      * @ORM\Column(name="App", type="string", length=32)
      */
     private $app;
-    
+
     /**
-     * @var int
+     * @var integer
      *
      * @ORM\Column(name="CreateTime", type="integer")
      */
     private $createTime;
+
+
 
     /**
      * Set msgId
@@ -84,6 +86,54 @@ class Message
     public function getMsgId()
     {
         return $this->msgId;
+    }
+
+    /**
+     * Set msgType
+     *
+     * @param string $msgType
+     *
+     * @return Message
+     */
+    public function setMsgType($msgType)
+    {
+        $this->msgType = $msgType;
+
+        return $this;
+    }
+
+    /**
+     * Get msgType
+     *
+     * @return string
+     */
+    public function getMsgType()
+    {
+        return $this->msgType;
+    }
+
+    /**
+     * Set msgContext
+     *
+     * @param string $msgContext
+     *
+     * @return Message
+     */
+    public function setMsgContext($msgContext)
+    {
+        $this->msgContext = $msgContext;
+
+        return $this;
+    }
+
+    /**
+     * Get msgContext
+     *
+     * @return string
+     */
+    public function getMsgContext()
+    {
+        return $this->msgContext;
     }
 
     /**
@@ -135,54 +185,6 @@ class Message
     }
 
     /**
-     * Set createTime
-     *
-     * @param integer $createTime
-     *
-     * @return Message
-     */
-    public function setCreateTime($createTime)
-    {
-        $this->createTime = $createTime;
-
-        return $this;
-    }
-
-    /**
-     * Get createTime
-     *
-     * @return int
-     */
-    public function getCreateTime()
-    {
-        return $this->createTime;
-    }
-
-    /**
-     * Set msgType
-     *
-     * @param string $msgType
-     *
-     * @return Message
-     */
-    public function setMsgType($msgType)
-    {
-        $this->msgType = $msgType;
-
-        return $this;
-    }
-
-    /**
-     * Get msgType
-     *
-     * @return string
-     */
-    public function getMsgType()
-    {
-        return $this->msgType;
-    }
-
-    /**
      * Set app
      *
      * @param string $app
@@ -207,26 +209,26 @@ class Message
     }
 
     /**
-     * Set msgContext
+     * Set createTime
      *
-     * @param string $msgContext
+     * @param integer $createTime
      *
      * @return Message
      */
-    public function setMsgContext($msgContext)
+    public function setCreateTime($createTime)
     {
-        $this->msgContext = $msgContext;
+        $this->createTime = $createTime;
 
         return $this;
     }
 
     /**
-     * Get msgContext
+     * Get createTime
      *
-     * @return string
+     * @return integer
      */
-    public function getMsgContext()
+    public function getCreateTime()
     {
-        return $this->msgContext;
+        return $this->createTime;
     }
 }
