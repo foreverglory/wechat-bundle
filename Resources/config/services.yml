@@ -3,7 +3,7 @@ parameters:
     wechat.app.class: Glory\Bundle\WechatBundle\Wechat\Application
 
 services:
-    wechat.app:
+    glory_wechat.app:
         class: %wechat.app.class%
         arguments: [@service_container]
     
