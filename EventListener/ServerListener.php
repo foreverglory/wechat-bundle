@@ -23,7 +23,8 @@ class ServerListener implements EventSubscriberInterface
             GloryWechatEvents::SERVER_REQUEST => array(
                 array('requestException', 1000),
             ),
-            GloryWechatEvents::SERVER_RESPONSE => 'responseException'
+            GloryWechatEvents::SERVER_RESPONSE => 'responseException',
+            GloryWechatEvents::SERVER_DEFAULT => 'defaultException'
         );
     }
 
@@ -82,6 +83,11 @@ class ServerListener implements EventSubscriberInterface
     }
 
     public function responseException(ServerEvent $event)
+    {
+        
+    }
+
+    public function defaultException(ServerEvent $event)
     {
         
     }

@@ -31,6 +31,10 @@ class ServerController extends Controller
             $event = new ServerEvent($app, $message);
             $dispatcher->dispatch(GloryWechatEvents::SERVER_REQUEST, $event);
             $dispatcher->dispatch(GloryWechatEvents::SERVER_RESPONSE, $event);
+            if ($response = $event->getResponse()) {
+                return $response;
+            }
+            $dispatcher->dispatch(GloryWechatEvents::SERVER_DEFAULT, $event);
             return $event->getResponse();
         });
         try {

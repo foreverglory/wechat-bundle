@@ -18,5 +18,6 @@ final class GloryWechatEvents
 
     const SERVER_REQUEST = 'wechat.server_request';
     const SERVER_RESPONSE = 'wechat.server_response';
+    const SERVER_DEFAULT = 'wechat.server_default';
 
 }
