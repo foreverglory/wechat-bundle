@@ -25,7 +25,7 @@ class ServerController extends Controller
 
     public function messageAction(Request $request, $id)
     {
-        $app = $this->get('wechat.app.' . $id);
+        $app = $this->get('glory_wechat.app.' . $id);
         $dispatcher = $this->get('event_dispatcher');
         $app->server->setMessageHandler(function($message) use ($app, $dispatcher) {
             $event = new ServerEvent($app, $message);
