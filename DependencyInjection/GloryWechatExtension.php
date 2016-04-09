@@ -29,10 +29,10 @@ class GloryWechatExtension extends Extension
         //$wechatServerDefinition = $container->getDefinition('wechat.app');
 
         foreach ($config['apps'] as $key => $val) {
-            $server = new DefinitionDecorator('wechat.app');
+            $server = new DefinitionDecorator('glory_wechat.app');
             $options = array_merge($val, array('name' => $key));
             $server->addArgument($options);
-            $container->setDefinition(sprintf('wechat.app.%s', $key), $server);
+            $container->setDefinition(sprintf('glory_wechat.app.%s', $key), $server);
         }
     }
 
