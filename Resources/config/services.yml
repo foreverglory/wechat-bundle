@@ -1,6 +1,7 @@
 parameters:
     #wechat.app.class: EasyWeChat\Foundation\Application
     wechat.app.class: Glory\Bundle\WechatBundle\Wechat\Application
+    wechat.app.class: Glory\Bundle\WechatBundle\Entity\WechatManager
 
 services:
     glory_wechat.app:
@@ -12,3 +13,7 @@ services:
         arguments: [@service_container]
         tags:
             -  { name: kernel.event_subscriber }
+
+    glory_wechat.manager:
+        class:  %wechat.manager.class%
+        arguments: [@service_container]
