@@ -1,7 +1,7 @@
 parameters:
     #wechat.app.class: EasyWeChat\Foundation\Application
     wechat.app.class: Glory\Bundle\WechatBundle\Wechat\Application
-    wechat.app.class: Glory\Bundle\WechatBundle\Entity\WechatManager
+    wechat.manager.class: Glory\Bundle\WechatBundle\Entity\WechatManager
 
 services:
     glory_wechat.app:
