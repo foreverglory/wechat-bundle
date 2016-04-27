@@ -6,6 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -30,14 +31,27 @@ class RedirectListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($this->container->get('glory_wechat.wechat_manager')->inWechat()) {
+        if (!$this->container->get('glory_wechat.wechat_manager')->inWechat()) {
             $request = $event->getRequest();
-            if ($this->httpUtils->checkRequestPath($request, 'glory_user_login')) {
-                $url = $this->container->get('router')->generate('glory_user_oauth_redirect', ['service' => 'wechat']);
-                $response = new RedirectResponse($url);
-                $event->setResponse($response);
+            try {
+                $bundle = $this->getKernel()->getBundle('GloryUserBundle');
+                if ($this->httpUtils->checkRequestPath($request, 'glory_user_login')) {
+                    $url = $this->container->get('router')->generate('glory_user_oauth_redirect', ['service' => 'wechat']);
+                    $response = new RedirectResponse($url);
+                    $event->setResponse($response);
+                }
+            } catch (Exception $ex) {
+                
             }
         }
+    }
+
+    /**
+     * @return KernelInterface
+     */
+    protected function getKernel()
+    {
+        return $this->container->get('kernel');
     }
 
 }
