@@ -1,19 +1,25 @@
 parameters:
     #wechat.app.class: EasyWeChat\Foundation\Application
     wechat.app.class: Glory\Bundle\WechatBundle\Wechat\Application
-    wechat.manager.class: Glory\Bundle\WechatBundle\Entity\WechatManager
+    wechat.manager.class: Glory\Bundle\WechatBundle\Model\WechatManager
 
 services:
     glory_wechat.app:
         class: %wechat.app.class%
         arguments: [@service_container]
     
-    glory_wechat.listener:
+    glory_wechat.service_listener:
         class: Glory\Bundle\WechatBundle\EventListener\ServerListener
         arguments: [@service_container]
         tags:
             -  { name: kernel.event_subscriber }
 
-    glory_wechat.manager:
-        class:  %wechat.manager.class%
+    glory_wechat.redirect_listener:
+        class: Glory\Bundle\WechatBundle\EventListener\RedirectListener
+        arguments: [@service_container, @security.http_utils]
+        tags:
+            -  { name: kernel.event_subscriber }
+            
+    glory_wechat.wechat_manager:
+        class: %wechat.manager.class%
         arguments: [@service_container]
