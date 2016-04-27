@@ -31,7 +31,7 @@ class RedirectListener implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$this->container->get('glory_wechat.wechat_manager')->inWechat()) {
+        if ($this->container->get('glory_wechat.wechat_manager')->inWechat()) {
             $request = $event->getRequest();
             try {
                 $bundle = $this->getKernel()->getBundle('GloryUserBundle');
