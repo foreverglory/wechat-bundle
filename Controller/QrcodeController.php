@@ -4,8 +4,9 @@ namespace Glory\Bundle\WechatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Glory\Bundle\WechatBundle\WechatEvents;
-use Glory\Bundle\WechatBundle\EventDispatcher\Event;
+use Glory\Bundle\WechatBundle\GloryWechatEvents;
+use Symfony\Component\HttpFoundation\Response;
+use Endroid\QrCode\QrCode;
 
 /**
  * Description of QrcodeController
@@ -15,13 +16,37 @@ use Glory\Bundle\WechatBundle\EventDispatcher\Event;
 class QrcodeController extends Controller
 {
 
-    public function indexAction(Request $request, $id)
+    public function foreverAction(Request $request, $code)
     {
-        $app = $this->get('wechat.app.' . $id);
-        $result = $app->qrcode->temporary(56, 6 * 24 * 3600);
-        $ticket = $result->ticket;
-        $url = $app->qrcode->url($ticket);
-        return new \Symfony\Component\HttpFoundation\Response('<img src="' . $url . '"/>');
+        $qrcode = $this->getAppQrcode();
+        $result = $qrcode->forever($code);
+
+        return $this->generateQrcode($result->url);
+    }
+
+    public function temporaryAction(Request $request, $code)
+    {
+        $qrcode = $this->getAppQrcode();
+        $expire = $this->container->getParameter('glory_wechat.qrcode.expire');
+        $result = $qrcode->temporary($code, $expire);
+
+        return $this->generateQrcode($result->url);
+    }
+
+    protected function getAppQrcode()
+    {
+        $app = $this->get('glory_wechat.app');
+        return $app->qrcode;
+    }
+
+    protected function generateQrcode($url)
+    {
+        $qrCode = new QrCode();
+        $qrCode->setText($url)
+                ->setSize(240)
+                ->setPadding(20);
+        $content = $qrCode->get('png');
+        return new Response($content, 200, array('Content-Type' => 'image/png'));
     }
 
 }

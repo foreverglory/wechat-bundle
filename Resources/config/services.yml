@@ -2,6 +2,7 @@ parameters:
     #wechat.app.class: EasyWeChat\Foundation\Application
     wechat.app.class: Glory\Bundle\WechatBundle\Wechat\Application
     wechat.manager.class: Glory\Bundle\WechatBundle\Model\WechatManager
+    glory_wechat.qrcode.expire: 300
 
 services:
     glory_wechat.app:
