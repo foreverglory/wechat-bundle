@@ -2,3 +2,6 @@ glory_wechat_server:
     path:   /wechat
     defaults: { _controller: GloryWechatBundle:Server:message }
 
+glory_wechat_qrcode:
+    path:   /wechat/qrcode/{id}
+    defaults: { _controller: GloryWechatBundle:Qrcode:index }
