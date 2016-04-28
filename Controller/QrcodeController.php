@@ -55,6 +55,10 @@ class QrcodeController extends Controller
 
     protected function generateQrcode($url)
     {
+        $router = $this->get('router')->getRouteCollection()->get('endroid_qrcode');
+        if ($defaults = $router->getDefaults()) {
+            return $this->forward($defaults['_controller']/* 'EndroidQrCodeBundle:QrCode:generate' */, array('text' => $url, 'extension' => 'png'));
+        }
         $qrCode = new QrCode();
         $qrCode->setText($url)
                 ->setSize(240)
