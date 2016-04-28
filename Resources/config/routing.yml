@@ -1,26 +1,4 @@
 glory_wechat_server:
-    path:   /wechat/{id}
-    defaults: { _controller: GloryWechatBundle:Server:message, id: default }
-
-glory_wechat_oauth:
-    path:   /wechat/{id}/oauth
-    defaults: { _controller: GloryWechatBundle:OAuth:redirect, id: default }
-
-glory_wechat_oauth_callback:
-    path:   /wechat/{id}/oauth/callback
-    defaults: { _controller: GloryWechatBundle:OAuth:callback, id: default }
-
-glory_wechat_qrcode:
-    path:   /wechat/{id}/qrcode
-    defaults: { _controller: GloryWechatBundle:Qrcode:index, id: default }
-
-glory_wechat_pay:
-    path:   /wechat/{id}/pay
-    defaults: { _controller: GloryWechatBundle:Payment:index, id: default }
-
-glory_wechat_pay_notify:
-    path:   /wechat/{id}/pay/notify
-    defaults: { _controller: GloryWechatBundle:Payment:notify, id: default }
-
-
+    path:   /wechat
+    defaults: { _controller: GloryWechatBundle:Server:message }
 
