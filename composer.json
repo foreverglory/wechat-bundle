@@ -13,13 +13,23 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Glory\\Bundle\\WechatBundle\\": ""}
+        "psr-4": {
+            "Glory\\Bundle\\WechatBundle\\": ""
+        }
     },
+    "minimum-stability": "dev",
     "require": {
         "symfony/symfony": "~2.3",
         "overtrue/wechat": "~3.0",
-        "zendframework/zend-diactoros": "~1.3"
+        "zendframework/zend-diactoros": "~1.3",
+        "endroid/qrcode": "~1.6"
     },
     "require-dev": {
+    },
+    "suggest": {
+        "endroid/qrcode-bundle": "通过链接直接显示二维码",
+        "hwi/oauth-bundle": "第三方登录",
+        "foreverglory/pay-bundle": "支付",
+        "foreverglory/chat-bundle": "聊天"
     }
 }
