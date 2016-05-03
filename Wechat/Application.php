@@ -17,10 +17,7 @@ class Application extends App
     {
         $router = $container->get('router');
         if (empty($config['oauth']['callback'])) {
-            $config['oauth']['callback'] = $router->generate('glory_wechat_oauth_callback', array('id' => $config['name']), true);
-        }
-        if (empty($config['payment']['notify_url'])) {
-            $config['payment']['notify_url'] = $router->generate('glory_wechat_pay_notify', array('id' => $config['name']), true);
+            $config['oauth']['callback'] = $router->generate('glory_wechat_oauth_callback', array(), true);
         }
         parent::__construct($config);
     }
