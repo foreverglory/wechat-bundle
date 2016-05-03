@@ -14,6 +14,7 @@ use Glory\Bundle\WechatBundle\Event\ServerEvent;
 use Glory\Bundle\WechatBundle\GloryWechatEvents;
 use Symfony\Component\HttpFoundation\Response;
 use EasyWeChat\Server\BadRequestException;
+use EasyWeChat\Message\Text;
 
 /**
  * Description of CommController
@@ -23,9 +24,9 @@ use EasyWeChat\Server\BadRequestException;
 class ServerController extends Controller
 {
 
-    public function messageAction(Request $request, $id)
+    public function messageAction(Request $request)
     {
-        $app = $this->get('glory_wechat.app.' . $id);
+        $app = $this->get('glory_wechat.app');
         $dispatcher = $this->get('event_dispatcher');
         $app->server->setMessageHandler(function($message) use ($app, $dispatcher) {
             $event = new ServerEvent($app, $message);
