@@ -12,11 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Message
 {
+
     /**
      * @var string
      *
-     * @ORM\Column(name="MsgId", type="string", length=255, unique=true)
      * @ORM\Id
+     * @ORM\Column(name="MsgId", type="string", length=255, unique=true)
      */
     private $msgId;
 
@@ -26,13 +27,6 @@ class Message
      * @ORM\Column(name="MsgType", type="string", length=32)
      */
     private $msgType;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="MsgContext", type="string", length=255, nullable=true)
-     */
-    private $msgContext;
 
     /**
      * @var string
@@ -62,7 +56,10 @@ class Message
      */
     private $createTime;
 
-
+    public function __construct()
+    {
+        ;
+    }
 
     /**
      * Set msgId
@@ -110,30 +107,6 @@ class Message
     public function getMsgType()
     {
         return $this->msgType;
-    }
-
-    /**
-     * Set msgContext
-     *
-     * @param string $msgContext
-     *
-     * @return Message
-     */
-    public function setMsgContext($msgContext)
-    {
-        $this->msgContext = $msgContext;
-
-        return $this;
-    }
-
-    /**
-     * Get msgContext
-     *
-     * @return string
-     */
-    public function getMsgContext()
-    {
-        return $this->msgContext;
     }
 
     /**
@@ -231,4 +204,5 @@ class Message
     {
         return $this->createTime;
     }
+
 }
