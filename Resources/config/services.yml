@@ -29,3 +29,8 @@ services:
         class: Glory\Bundle\WechatBundle\Payment\Provider\WechatProvider
         calls:
             - [ setContainer, [@service_container] ]
+
+    glory_wechat.util:
+        class: Glory\Bundle\WechatBundle\Util\WechatUtil
+        calls:
+            - [ setContainer, [@service_container] ]
