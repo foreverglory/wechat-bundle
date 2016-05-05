@@ -24,3 +24,8 @@ services:
     glory_wechat.wechat_manager:
         class: %wechat.manager.class%
         arguments: [@service_container]
+
+    glory_wechat.pay_provider:
+        class: Glory\Bundle\WechatBundle\Payment\Provider\WechatProvider
+        calls:
+            - [ setContainer, [@service_container] ]
