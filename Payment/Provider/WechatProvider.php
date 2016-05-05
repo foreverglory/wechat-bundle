@@ -29,8 +29,7 @@ class WechatProvider extends AbstractProvider implements ProviderInterface
     public function process(OrderInterface $order)
     {
         $element = '<img src="' . $this->generateUrl('glory_wechat_pay_qrcode', ['id' => $order->getId()]) . '"/>';
-        $wechatManager = $this->container->get('glory_wechat.wechat_manager');
-        if (!$wechatManager->inWechat()) {
+        if (!$this->get('glory_wechat.util')->inWechat()) {
             return $element;
         }
         $payment = $this->getPayment();
