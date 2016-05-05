@@ -26,10 +26,4 @@ class WechatManager
         $this->container = $container;
     }
 
-    public function inWechat($agent = null)
-    {
-        $agent = $agent ? : $this->container->get('request')->headers->get('user-agent');
-        return strpos($agent, 'MicroMessenger') !== false;
-    }
-
 }
