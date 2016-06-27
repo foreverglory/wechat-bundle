@@ -11,8 +11,6 @@ namespace Glory\Bundle\WechatBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use EasyWeChat\Payment\Merchant;
-use EasyWeChat\Payment\Payment;
 use EasyWeChat\Payment\Order;
 use Endroid\QrCode\QrCode;
 
@@ -31,19 +29,19 @@ class PaymentController extends Controller
     public function qrcodeAction(Request $request, $id)
     {
         $payManager = $this->get('glory_pay.pay_manager');
-        $order = $payManager->getOrder($id);
-        $payment = $this->getPayment();
+        $pay = $payManager->findPay($id);
+        $payment = $this->getPayment($pay);
         $result = $payment->prepare(new Order([
-            'body' => $order->getBody(),
-            'detail' => $order->getDetail(),
-            'out_trade_no' => $id,
-            'total_fee' => floatval($order->getAmount()) * 100,
+            'body' => $pay->getBody(),
+            'detail' => $pay->getDetail(),
+            'out_trade_no' => $pay->getSn(),
+            'total_fee' => floatval($pay->getAmount()) * 100,
             'trade_type' => 'NATIVE', //扫码支付
         ]));
         if ($result->return_code == 'SUCCESS' && $result->result_code == 'SUCCESS') {
             $url = $result['code_url'];
         } else {
-            
+            $url = $result['return_msg'];
         }
         $qrCode = new QrCode();
         $qrCode->setText($url)
@@ -53,21 +51,9 @@ class PaymentController extends Controller
         return new Response($content, 200, array('Content-Type' => 'image/png'));
     }
 
-    protected function getPayment()
+    protected function getPayment($pay)
     {
-        $merchant = new Merchant([
-            'app_id' => $this->container->getParameter('wechat_id'),
-            'merchant_id' => $this->container->getParameter('wechat_partner'),
-            'key' => $this->container->getParameter('wechat_partnerkey'),
-            'notify_url' => $this->getNotifyUrl(),
-        ]);
-        $payment = new Payment($merchant);
-        return $payment;
-    }
-
-    protected function getNotifyUrl()
-    {
-        return $this->generateUrl('glory_pay_notify', ['service' => 'wechat'], true);
+        return $this->get('glory_pay.provider.' . $pay->getProvider())->getPayment();
     }
 
 }
