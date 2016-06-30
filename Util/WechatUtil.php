@@ -12,6 +12,7 @@
 namespace Glory\Bundle\WechatBundle\Util;
 
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Glory\Bundle\OAuthBundle\Security\Core\Authentication\Token\OAuthToken;
 
 /**
  * Description of WechatUtil
@@ -27,6 +28,18 @@ class WechatUtil
     {
         $agent = $agent ? : $this->container->get('request')->headers->get('user-agent');
         return strpos($agent, 'MicroMessenger') !== false;
+    }
+
+    public function getOpenId()
+    {
+        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
+            return;
+        }
+        if ($token instanceof OAuthToken) {
+            $accessToken = $token->getRawToken();
+            return empty($accessToken['open_id'])? : $accessToken['open_id'];
+        }
+        return;
     }
 
 }
