@@ -28,8 +28,8 @@
     },
     "suggest": {
         "endroid/qrcode-bundle": "通过链接直接显示二维码",
-        "hwi/oauth-bundle": "第三方登录",
-        "foreverglory/pay-bundle": "支付",
+        "foreverglory/oauth-bundle": "第三方登录",
+        "foreverglory/pay-bundle": "支付，扩展微信支付",
         "foreverglory/chat-bundle": "聊天"
     }
 }
