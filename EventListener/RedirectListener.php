@@ -34,9 +34,8 @@ class RedirectListener implements EventSubscriberInterface
         if ($this->container->get('glory_wechat.util')->inWechat()) {
             $request = $event->getRequest();
             try {
-                $bundle = $this->getKernel()->getBundle('GloryUserBundle');
-                if ($this->httpUtils->checkRequestPath($request, 'glory_user_login')) {
-                    $url = $this->container->get('router')->generate('glory_user_oauth_redirect', ['service' => 'wechat']);
+                if ($this->httpUtils->checkRequestPath($request, 'glory_user_login') && $this->getKernel()->getBundle('GloryUserBundle') && $this->getKernel()->getBundle('GloryOAuthBundle')) {
+                    $url = $this->container->get('router')->generate('glory_oauth_connect', ['service' => 'wechat']);
                     $response = new RedirectResponse($url);
                     $event->setResponse($response);
                 }
