@@ -31,9 +31,9 @@
         "bower": {
             "require": {
                 "jquery": "~2.0",
-                "jquery.ui": "~1.11",
-                "bootstrap": "latest",
-                "fontawesome": "latest"
+                "jquery.ui": "~1.12",
+                "bootstrap": "~3.3",
+                "fontawesome": "~4.6"
             }
         }
     },
