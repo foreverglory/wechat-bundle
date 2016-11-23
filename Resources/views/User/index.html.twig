@@ -1,0 +1,46 @@
+{% extends "GloryWechatBundle:User:layout.html.twig" %}
+
+{% block content %}
+    <div class="box" id="user-list">
+        <div class="box-header">
+            <h3 class="box-title">关注列表</h3>
+            <div class="box-tools">
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>妮称</th>
+                    <th>地址</th>
+                    <th>性别</th>
+                    <th>关注时间</th>
+                    <th>Operate</th>
+                </tr>
+                {% for item in list %}
+                    <tr>
+                        <td><img src="{{item.headimgurl}}" width="50" height="50" /></td>
+                        <td>
+                            {{item.nickname}}
+                            {% if item.remark %}
+                                ({{item.remark}})
+                            {% endif %}
+                        </td>
+                        <td>{{item.country}} {{item.province}} {{item.city}}</td>
+                        <td>{% if item.sex == 1 %}男{% elseif item.sex == 2 %}女{% endif %}</td>
+                        <td>
+                            {{item.subscribe_time|date('Y-m-d H:i:s')}}
+                        </td>
+                        <td>
+                            {{item.openid}}
+                            {#<a href="{{ path('glory_user_manage_edit', {'id': user.id}) }}">编辑</a>
+                            <a href="{{ path('glory_user_manage_delete', {'id': user.id}) }}">删除</a>#}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+        </div>
+    </div>
+{% endblock %}
