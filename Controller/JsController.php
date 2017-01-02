@@ -17,7 +17,7 @@ class JsController extends Controller
     public function configAction(Request $request)
     {
         $app = $this->get('glory_wechat.app');
-        return new JsonResponse($app->js->config());
+        return new JsonResponse($app->js->config($request->get('api'), $this->getParameter('kernel.debug')));
     }
 
 }

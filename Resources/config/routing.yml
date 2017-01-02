@@ -16,3 +16,7 @@ glory_wechat_pay_qrcode:
 glory_wechat_admin_user:
     path: /admin/wechat/user
     defaults: { _controller: GloryWechatBundle:User:index }
+
+glory_wechat_js:
+    path: /wechat/js
+    defaults: { _controller: GloryWechatBundle:Js:config }
