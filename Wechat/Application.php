@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class Application extends App
 {
 
-    public function __construct(ContainerInterface $container, $config)
+    public function __construct(ContainerInterface $container, $config = [])
     {
         $router = $container->get('router');
         parent::__construct($config);
