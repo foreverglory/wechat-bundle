@@ -13,7 +13,8 @@ namespace Glory\Bundle\WechatBundle\Payment\Provider;
 
 use Glory\Bundle\PayBundle\Payment\Provider\AbstractProvider;
 use Glory\Bundle\PayBundle\Payment\Provider\ProviderInterface;
-use Glory\Bundle\PayBundle\Model\OrderInterface;
+use Glory\Bundle\PayBundle\Model\PayInterface;
+use Glory\DoctrineManager\DoctrineManager as PayManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -29,27 +30,62 @@ use EasyWeChat\Payment\Order;
 class WechatProvider extends AbstractProvider implements ProviderInterface
 {
 
-    public function process(OrderInterface $order)
+    /**
+     * @var PayManager 
+     */
+    protected $payManager;
+
+    public function __construct(PayManager $PayManager)
     {
-        $element = '<img src="' . $this->generateUrl('glory_wechat_pay_qrcode', ['id' => $order->getId()]) . '"/>';
-        if (!$this->get('glory_wechat.util')->inWechat()) {
+        $this->payManager = $PayManager;
+    }
+
+    public function setOption($option = [])
+    {
+        return parent::setOption([
+                    'app_id' => $option['app'],
+                    'merchant_id' => $option['id'],
+                    'key' => $option['key'],
+                    'notify_url' => $this->getNotifyUrl(),
+        ]);
+    }
+
+    public function process(PayInterface $pay)
+    {
+        $element = '<img src="' . $this->generateUrl('glory_wechat_pay_qrcode', ['id' => $pay->getId()]) . '"/>';
+        $wechatUtil = $this->container->get('glory_wechat.util');
+        if (!$wechatUtil->inWechat()) {
             return $element;
         }
         $payment = $this->getPayment();
-        $openid = $this->getOpenId();
+        $openid = $wechatUtil->getOpenId();
         if (empty($openid)) {
             return $this->getOAuthResponse();
         }
         $result = $payment->prepare(new Order([
-            'body' => $order->getBody(),
-            'detail' => $order->getDetail(),
-            'out_trade_no' => $order->getSn(),
-            'total_fee' => floatval($order->getAmount()) * 100,
+            'body' => $pay->getBody(),
+            'detail' => $pay->getDetail(),
+            'out_trade_no' => $pay->getSn(),
+            'total_fee' => floatval($pay->getAmount()) * 100,
             'trade_type' => 'JSAPI', //公众号内支付
             'openid' => $openid, //公众号支付必须获取用户openid
         ]));
         $json = $payment->configForPayment($result->prepay_id);
-        $script = '<script>
+        $script = '<script type="text/javascript">
+            function wechatPay(){
+                if (typeof WeixinJSBridge != "undefined") {
+                    WeixinJSBridge.invoke(
+                            "getBrandWCPayRequest", ' . $json . ',
+                            function (res) {
+                                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                    alert("支付成功");
+                                } else {
+                                    alert("支付失败");
+                                }
+                            }
+                    );
+                }
+            }
             document.addEventListener("WeixinJSBridgeReady", function () {
                 if (typeof WeixinJSBridge != "undefined") {
                     WeixinJSBridge.invoke(
@@ -68,14 +104,9 @@ class WechatProvider extends AbstractProvider implements ProviderInterface
         return $script . $element;
     }
 
-    protected function getPayment()
+    public function getPayment()
     {
-        $merchant = new Merchant([
-            'app_id' => $this->container->getParameter('wechat_id'),
-            'merchant_id' => $this->container->getParameter('wechat_partner'),
-            'key' => $this->container->getParameter('wechat_partnerkey'),
-            'notify_url' => $this->getNotifyUrl(),
-        ]);
+        $merchant = new Merchant($this->option);
         $payment = new Payment($merchant);
         return $payment;
     }
@@ -85,23 +116,16 @@ class WechatProvider extends AbstractProvider implements ProviderInterface
         return $this->container->get('router')->generate($route, $parameters, $referenceType);
     }
 
-    /**
-     * 
-     * @return OrderInterface
-     */
-    public function getOrder()
+    public function notify(Request $request)
     {
-        
-    }
-
-    public function notify(OrderInterface $order)
-    {
-        
-    }
-
-    public function notifyCheck(Request $request)
-    {
-        
+        $payment = $this->getPayment();
+        $response = $payment->handleNotify(function($notify, $successful) {
+            $pay = $this->getPayForSN($notify->out_trade_no);
+            $pay->setData($notify);
+            $this->setPay($pay);
+            return $successful;
+        });
+        return $response;
     }
 
     public function getName()
@@ -109,16 +133,13 @@ class WechatProvider extends AbstractProvider implements ProviderInterface
         return 'wechat';
     }
 
-    protected function getOpenId()
+    /**
+     * @param type $sn
+     * @return PayInterface
+     */
+    protected function getPayForSN($sn)
     {
-        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
-            return;
-        }
-        if ($token instanceof \HWI\Bundle\OAuthBundle\Security\Core\Authentication\Token\OAuthToken) {
-            $accessToken = $token->getRawToken();
-            return empty($accessToken['open_id'])? : $accessToken['open_id'];
-        }
-        return;
+        return $this->payManager->findOneBy(['sn' => $sn]);
     }
 
     protected function getOAuthResponse()
