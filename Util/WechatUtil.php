@@ -37,7 +37,7 @@ class WechatUtil
         }
         if ($token instanceof OAuthToken) {
             $accessToken = $token->getRawToken();
-            return empty($accessToken['open_id'])? : $accessToken['open_id'];
+            return empty($accessToken['openid']) ? null : $accessToken['openid'];
         }
         return;
     }
