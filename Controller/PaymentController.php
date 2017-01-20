@@ -22,6 +22,11 @@ use Endroid\QrCode\QrCode;
 class PaymentController extends Controller
 {
 
+    public function processAction(Request $request, $id)
+    {
+        
+    }
+
     /**
      * 生成支付二维码
      * @return Response
@@ -29,7 +34,7 @@ class PaymentController extends Controller
     public function qrcodeAction(Request $request, $id)
     {
         $payManager = $this->get('glory_pay.pay_manager');
-        $pay = $payManager->findPay($id);
+        $pay = $payManager->find($id);
         $payment = $this->getPayment($pay);
         $result = $payment->prepare(new Order([
             'body' => $pay->getBody(),
